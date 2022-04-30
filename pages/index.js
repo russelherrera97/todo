@@ -76,16 +76,21 @@ export default function Home() {
                   My Tasks
                 </Text>
                 <Flex mb="30px">
-                  <Select w="180px" placeholder="Filter Tasks">
+                  <Select
+                    w="180px"
+                    placeholder="Filter Tasks"
+                    shadow="1px 0px 13px 0px rgba(0,0,0,0.75);"
+                  >
                     <option value="all">All Tasks</option>
                     <option value="completed">Completed Tasks</option>
                     <option value="incomplete">Incomplete Tasks</option>
                   </Select>
                   <Spacer />
                   <Button
-                    backgroundColor="#9099a2"
+                    backgroundColor="#fff"
                     alignSelf="center"
                     w="180px"
+                    shadow="1px 0px 13px 0px rgba(0,0,0,0.75);"
                   >
                     Clear
                   </Button>
