@@ -199,7 +199,7 @@ export default function Home() {
                 >
                   My Tasks
                 </Text>
-                <Flex mb={{ base: "6vh", lg: "4vh" }} border="1px">
+                <Flex mb={{ base: "6vh", lg: "4vh" }}>
                   <Select
                     w={{ base: "130px", md: "180px" }}
                     placeholder="Filter Task"
