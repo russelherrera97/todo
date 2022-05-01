@@ -110,7 +110,7 @@ export default function Home() {
   };
 
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider>
       <Stack spacing="0px">
         <Stack>
           <Flex
@@ -143,10 +143,11 @@ export default function Home() {
                 >
                   Create New Task
                 </Text>
-                <Text alignSelf="self-end" mb={"auto"}>
-                  {textAreaCount}/25
-                </Text>
+
                 <FormControl variant="floating">
+                  <Text mb={"auto"} fontSize="12" textAlign="right">
+                    {textAreaCount.toString()}/25
+                  </Text>
                   <Input
                     mb="5vh"
                     backgroundColor="#fff"
@@ -156,19 +157,20 @@ export default function Home() {
                     maxLength="25"
                   />
                 </FormControl>
-                <Text alignSelf="self-end" mb={"auto"}>
-                  {description}/75
-                </Text>
-                <Textarea
-                  backgroundColor="#fff"
-                  placeholder="Task Description"
-                  mb="5vh"
-                  maxLength={75}
-                  focusBorderColor="#a7b3a5"
-                  width="auto"
-                  h={{ base: "20vh", md: "30vh", lg: "30vh" }}
-                  onChange={charCount}
-                />
+                <FormControl variant="floating">
+                  <Text fontSize="12" mb={"auto"} textAlign="right">
+                    {description}/75
+                  </Text>
+                  <Textarea
+                    backgroundColor="#fff"
+                    placeholder="Task Description"
+                    mb="5vh"
+                    maxLength={75}
+                    focusBorderColor="#a7b3a5"
+                    h={{ base: "20vh", md: "30vh", lg: "30vh" }}
+                    onChange={charCount}
+                  />
+                </FormControl>
                 <Button
                   backgroundColor="#9099a2"
                   alignSelf="center"
@@ -188,7 +190,7 @@ export default function Home() {
               {" "}
               <Flex
                 flexDir="column"
-                rowGap={{ base: 0, sm: "20px", lg: "70px" }}
+                rowGap={{ base: 0, sm: "20px", lg: "40px" }}
               >
                 <Text
                   fontWeight="600"
@@ -197,7 +199,7 @@ export default function Home() {
                 >
                   My Tasks
                 </Text>
-                <Flex mb={{ base: "6vh", lg: "4vh" }}>
+                <Flex mb={{ base: "6vh", lg: "4vh" }} border="1px">
                   <Select
                     w={{ base: "130px", md: "180px" }}
                     placeholder="Filter Task"
