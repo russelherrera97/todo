@@ -129,19 +129,21 @@ export default function Home() {
 
         <Stack h="100%" w="100%">
           <SimpleGrid columns={{ base: 1, md: 2 }}>
-            <Box backgroundColor="#D5D5D5" py="40px" px="40px" h={"100%"}>
-              <Flex
-                flexDir="column"
-                lineHeight={{ base: "7vh", md: "5vh", lg: "8vh" }}
-              >
+            <Box
+              backgroundColor="#D5D5D5"
+              py="40px"
+              px="40px"
+              h={{ base: "100%", md: "100vh" }}
+            >
+              <Flex flexDir="column" rowGap={{ base: 0, lg: "20px" }}>
                 <Text
                   fontWeight="600"
-                  fontSize={{ base: "1.5rem", md: "2rem", lg: "3rem" }}
+                  fontSize={{ base: "2rem", lg: "3rem" }}
                   color="#FFF"
                 >
-                  Create a New Task
+                  Create New Task
                 </Text>
-                <Text alignSelf="self-end" mb={{ base: -10, md: 0, lg: "-10" }}>
+                <Text alignSelf="self-end" mb={"auto"}>
                   {textAreaCount}/25
                 </Text>
                 <FormControl variant="floating">
@@ -149,13 +151,12 @@ export default function Home() {
                     mb="5vh"
                     backgroundColor="#fff"
                     focusBorderColor="#a7b3a5"
-                    placeholder=" "
+                    placeholder="Task Name"
                     onChange={titleCount}
                     maxLength="25"
                   />
-                  <FormLabel>Task Title</FormLabel>
                 </FormControl>
-                <Text alignSelf="self-end" mb={{ base: -5, md: 0, lg: "-5" }}>
+                <Text alignSelf="self-end" mb={"auto"}>
                   {description}/75
                 </Text>
                 <Textarea
@@ -165,7 +166,7 @@ export default function Home() {
                   maxLength={75}
                   focusBorderColor="#a7b3a5"
                   width="auto"
-                  h={{ base: "20vh", md: "40vh", lg: "50vh" }}
+                  h={{ base: "20vh", md: "30vh", lg: "30vh" }}
                   onChange={charCount}
                 />
                 <Button
@@ -182,22 +183,26 @@ export default function Home() {
               backgroundColor="#fff"
               py="40px"
               px="40px"
-              h={{ base: "55vh", md: "100vh" }}
+              h={{ base: "100%", md: "100vh" }}
             >
               {" "}
-              <Flex flexDir="column" lineHeight="8vh">
+              <Flex
+                flexDir="column"
+                rowGap={{ base: 0, sm: "20px", lg: "70px" }}
+              >
                 <Text
                   fontWeight="600"
-                  fontSize={{ base: "1.5rem", md: "3rem" }}
+                  fontSize={{ base: "2rem", lg: "3rem" }}
                   color="#000"
                 >
                   My Tasks
                 </Text>
-                <Flex mb="30px">
+                <Flex mb={{ base: "6vh", lg: "4vh" }}>
                   <Select
                     w={{ base: "130px", md: "180px" }}
                     placeholder="Filter Task"
                     shadow="0px 0px 10px 0px rgba(0,0,0,0.75);"
+                    mr="20px"
                   >
                     <option value="all">All Tasks</option>
                     <option value="completed">Completed Tasks</option>
@@ -215,7 +220,7 @@ export default function Home() {
                   </Button>
                 </Flex>
                 <Box
-                  h={{ base: "40vh", md: "40vh", lg: "50vh" }}
+                  h={{ base: "40vh", md: "30vh", lg: "30vh" }}
                   backgroundColor="green"
                   px="30px"
                   py="30px"
