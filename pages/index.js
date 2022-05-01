@@ -7,6 +7,11 @@ import {
   Text,
   Button,
   ChakraProvider,
+  Fade,
+  useDisclosure,
+  ScaleFade,
+  Slide,
+  SlideFade,
   Input,
   FormControl,
   FormLabel,
@@ -16,6 +21,7 @@ import {
   extendTheme,
   Textarea,
 } from "@chakra-ui/react";
+import { useState } from "react";
 export default function Home() {
   const activeLabelStyles = {
     transform: "scale(0.85) translateY(-24px)",
@@ -54,6 +60,34 @@ export default function Home() {
       },
     },
   });
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const TaskItem = () => {
+    return (
+      <Flex flexDir="column">
+        <Box
+          backgroundColor="red"
+          w="100%"
+          h="10vh"
+          mb="3vh"
+          px="5px"
+          shadow="0px 0px 10px 0px rgba(0,0,0,0.75);"
+          className="task-item"
+          borderRadius="10px"
+        >
+          <Text>Task 1</Text>
+        </Box>
+      </Flex>
+    );
+  };
+
+  const [inputList, setInputList] = useState([]);
+  const onAddBtnClick = () => {
+    setInputList(inputList.concat(<TaskItem key={inputList.length} />));
+  };
+  const removeInput = () => {
+    setInputList(inputList.slice(0, 0));
+  };
   return (
     <ChakraProvider theme={theme}>
       <Stack spacing="0px">
@@ -112,6 +146,7 @@ export default function Home() {
                   backgroundColor="#9099a2"
                   alignSelf="center"
                   w={{ base: "200px", md: "300px" }}
+                  onClick={onAddBtnClick}
                 >
                   Create
                 </Button>
@@ -148,6 +183,7 @@ export default function Home() {
                     alignSelf="center"
                     w={{ base: "100px", md: "180px" }}
                     shadow="0px 0px 10px 0px rgba(0,0,0,0.75);"
+                    onClick={removeInput}
                   >
                     Clear
                   </Button>
@@ -160,19 +196,7 @@ export default function Home() {
                   overflow="auto"
                   borderRadius="10px"
                 >
-                  <Flex flexDir="column">
-                    <Box
-                      backgroundColor="red"
-                      w="100%"
-                      h="10vh"
-                      mb="3vh"
-                      px="5px"
-                      shadow="0px 0px 10px 0px rgba(0,0,0,0.75);"
-                      borderRadius="10px"
-                    >
-                      <Text>Task 1</Text>
-                    </Box>
-                  </Flex>
+                  {inputList}
                 </Box>
               </Flex>
             </Box>
@@ -180,5 +204,24 @@ export default function Home() {
         </Stack>
       </Stack>
     </ChakraProvider>
+  );
+}
+
+function TaskItem() {
+  return (
+    <Flex flexDir="column">
+      <Box
+        backgroundColor="red"
+        w="100%"
+        h="10vh"
+        mb="3vh"
+        px="5px"
+        shadow="0px 0px 10px 0px rgba(0,0,0,0.75);"
+        className="task-item"
+        borderRadius="10px"
+      >
+        <Text>Task 1</Text>
+      </Box>
+    </Flex>
   );
 }
