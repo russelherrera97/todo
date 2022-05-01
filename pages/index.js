@@ -60,8 +60,29 @@ export default function Home() {
       },
     },
   });
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [value, setValue] = useState("");
+  const [value2, setValue2] = useState("");
+  const [inputList, setInputList] = useState([]);
+  const [textAreaCount, ChangeTextAreaCount] = useState(0);
+  const [description, setDescription] = useState(0);
+  function handle() {
+    console.log(value);
+  }
+  const charCount = (e) => {
+    setDescription(e.target.value.length);
+    setValue2(e.target.value);
+  };
+  const onAddBtnClick = () => {
+    setInputList(inputList.concat(<TaskItem key={inputList.length} />));
+  };
+  const removeInput = () => {
+    setInputList(inputList.slice(0, 0));
+  };
 
+  const titleCount = (e) => {
+    ChangeTextAreaCount(e.target.value.length);
+    setValue(e.target.value);
+  };
   const TaskItem = () => {
     return (
       <Flex flexDir="column">
@@ -70,24 +91,24 @@ export default function Home() {
           w="100%"
           h="10vh"
           mb="3vh"
-          px="5px"
+          py="10px"
+          px="30px"
           shadow="0px 0px 10px 0px rgba(0,0,0,0.75);"
           className="task-item"
           borderRadius="10px"
         >
-          <Text>Task 1</Text>
+          <Flex flexDir={"column"} lineHeight="30px">
+            <Text fontSize="1.5rem" fontWeight={"600"}>
+              {" "}
+              {value.toString()}
+            </Text>
+            <Text> {value2.toString()}</Text>
+          </Flex>
         </Box>
       </Flex>
     );
   };
 
-  const [inputList, setInputList] = useState([]);
-  const onAddBtnClick = () => {
-    setInputList(inputList.concat(<TaskItem key={inputList.length} />));
-  };
-  const removeInput = () => {
-    setInputList(inputList.slice(0, 0));
-  };
   return (
     <ChakraProvider theme={theme}>
       <Stack spacing="0px">
@@ -125,22 +146,28 @@ export default function Home() {
                 >
                   Create a New Task
                 </Text>
+                <Text alignSelf="self-end">{textAreaCount}/25</Text>
                 <FormControl variant="floating">
                   <Input
                     mb="5vh"
                     backgroundColor="#fff"
                     focusBorderColor="#a7b3a5"
                     placeholder=" "
+                    onChange={titleCount}
+                    maxLength="25"
                   />
                   <FormLabel>Task Title</FormLabel>
                 </FormControl>
+                <Text>{description}/75</Text>
                 <Textarea
                   backgroundColor="#fff"
                   placeholder="Task Description"
                   mb="5vh"
+                  maxLength={75}
                   focusBorderColor="#a7b3a5"
                   width="auto"
                   h={{ base: "20vh", md: "40vh", lg: "50vh" }}
+                  onChange={charCount}
                 />
                 <Button
                   backgroundColor="#9099a2"
@@ -204,24 +231,5 @@ export default function Home() {
         </Stack>
       </Stack>
     </ChakraProvider>
-  );
-}
-
-function TaskItem() {
-  return (
-    <Flex flexDir="column">
-      <Box
-        backgroundColor="red"
-        w="100%"
-        h="10vh"
-        mb="3vh"
-        px="5px"
-        shadow="0px 0px 10px 0px rgba(0,0,0,0.75);"
-        className="task-item"
-        borderRadius="10px"
-      >
-        <Text>Task 1</Text>
-      </Box>
-    </Flex>
   );
 }
