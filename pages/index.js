@@ -129,24 +129,21 @@ export default function Home() {
 
         <Stack h="100%" w="100%">
           <SimpleGrid columns={{ base: 1, md: 2 }}>
-            <Box
-              backgroundColor="#D5D5D5"
-              py="40px"
-              px="40px"
-              h={{ base: "55vh", md: "100vh" }}
-            >
+            <Box backgroundColor="#D5D5D5" py="40px" px="40px" h={"100%"}>
               <Flex
                 flexDir="column"
                 lineHeight={{ base: "7vh", md: "5vh", lg: "8vh" }}
               >
                 <Text
                   fontWeight="600"
-                  fontSize={{ base: "1.5rem", md: "3rem" }}
+                  fontSize={{ base: "1.5rem", md: "2rem", lg: "3rem" }}
                   color="#FFF"
                 >
                   Create a New Task
                 </Text>
-                <Text alignSelf="self-end">{textAreaCount}/25</Text>
+                <Text alignSelf="self-end" mb={{ base: -10, md: 0, lg: "-10" }}>
+                  {textAreaCount}/25
+                </Text>
                 <FormControl variant="floating">
                   <Input
                     mb="5vh"
@@ -158,7 +155,9 @@ export default function Home() {
                   />
                   <FormLabel>Task Title</FormLabel>
                 </FormControl>
-                <Text>{description}/75</Text>
+                <Text alignSelf="self-end" mb={{ base: -5, md: 0, lg: "-5" }}>
+                  {description}/75
+                </Text>
                 <Textarea
                   backgroundColor="#fff"
                   placeholder="Task Description"
