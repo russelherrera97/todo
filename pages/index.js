@@ -8,14 +8,54 @@ import {
   Button,
   ChakraProvider,
   Input,
+  FormControl,
+  FormLabel,
   Select,
   Spacer,
   SimpleGrid,
+  extendTheme,
   Textarea,
 } from "@chakra-ui/react";
 export default function Home() {
+  const activeLabelStyles = {
+    transform: "scale(0.85) translateY(-24px)",
+  };
+  const theme = extendTheme({
+    components: {
+      Form: {
+        variants: {
+          floating: {
+            container: {
+              _focusWithin: {
+                label: {
+                  ...activeLabelStyles,
+                },
+              },
+              "input:not(:placeholder-shown) + label, .chakra-select__wrapper + label":
+                {
+                  ...activeLabelStyles,
+                },
+              label: {
+                top: 0,
+                color: "gray",
+                left: 0,
+                zIndex: 2,
+                position: "absolute",
+                backgroundColor: "transparent",
+                pointerEvents: "none",
+                mx: 3,
+                px: 1,
+                my: 0,
+                transformOrigin: "left top",
+              },
+            },
+          },
+        },
+      },
+    },
+  });
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       <Stack spacing="0px">
         <Stack>
           <Flex
@@ -23,7 +63,7 @@ export default function Home() {
             px="10px"
             h="45px"
             boxShadow="lg"
-            alignItems="flex-start"
+            alignItems={{ base: "center", md: "flex-start" }}
             backgroundColor="#6D7993"
           >
             <Text fontWeight="600" color="#fff" fontSize="2rem">
@@ -40,17 +80,26 @@ export default function Home() {
               px="40px"
               h={{ base: "55vh", md: "100vh" }}
             >
-              <Flex flexDir="column" lineHeight="10vh">
-                <Text fontWeight="600" fontSize="3rem" color="#FFF">
+              <Flex
+                flexDir="column"
+                lineHeight={{ base: "7vh", md: "5vh", lg: "8vh" }}
+              >
+                <Text
+                  fontWeight="600"
+                  fontSize={{ base: "1.5rem", md: "3rem" }}
+                  color="#FFF"
+                >
                   Create a New Task
                 </Text>
-                <Input
-                  mb="5vh"
-                  width="auto"
-                  backgroundColor="#fff"
-                  focusBorderColor="#a7b3a5"
-                  placeholder="Task Title"
-                />
+                <FormControl variant="floating">
+                  <Input
+                    mb="5vh"
+                    backgroundColor="#fff"
+                    focusBorderColor="#a7b3a5"
+                    placeholder=" "
+                  />
+                  <FormLabel>Task Title</FormLabel>
+                </FormControl>
                 <Textarea
                   backgroundColor="#fff"
                   placeholder="Task Description"
@@ -59,7 +108,11 @@ export default function Home() {
                   width="auto"
                   h={{ base: "20vh", md: "40vh", lg: "50vh" }}
                 />
-                <Button backgroundColor="#9099a2" alignSelf="center" w="300px">
+                <Button
+                  backgroundColor="#9099a2"
+                  alignSelf="center"
+                  w={{ base: "200px", md: "300px" }}
+                >
                   Create
                 </Button>
               </Flex>
@@ -72,14 +125,18 @@ export default function Home() {
             >
               {" "}
               <Flex flexDir="column" lineHeight="8vh">
-                <Text fontWeight="600" fontSize="3rem" color="#000">
+                <Text
+                  fontWeight="600"
+                  fontSize={{ base: "1.5rem", md: "3rem" }}
+                  color="#000"
+                >
                   My Tasks
                 </Text>
                 <Flex mb="30px">
                   <Select
-                    w="180px"
-                    placeholder="Filter Tasks"
-                    shadow="1px 0px 13px 0px rgba(0,0,0,0.75);"
+                    w={{ base: "130px", md: "180px" }}
+                    placeholder="Filter Task"
+                    shadow="0px 0px 10px 0px rgba(0,0,0,0.75);"
                   >
                     <option value="all">All Tasks</option>
                     <option value="completed">Completed Tasks</option>
@@ -89,21 +146,33 @@ export default function Home() {
                   <Button
                     backgroundColor="#fff"
                     alignSelf="center"
-                    w="180px"
-                    shadow="1px 0px 13px 0px rgba(0,0,0,0.75);"
+                    w={{ base: "100px", md: "180px" }}
+                    shadow="0px 0px 10px 0px rgba(0,0,0,0.75);"
                   >
                     Clear
                   </Button>
                 </Flex>
                 <Box
-                  minH="50vh"
-                  maxH="50vh"
+                  h={{ base: "40vh", md: "40vh", lg: "50vh" }}
                   backgroundColor="green"
                   px="30px"
+                  py="30px"
                   overflow="auto"
                   borderRadius="10px"
                 >
-                  <Flex flexDir="column">{/* TODO: Insert Tasks Here */}</Flex>
+                  <Flex flexDir="column">
+                    <Box
+                      backgroundColor="red"
+                      w="100%"
+                      h="10vh"
+                      mb="3vh"
+                      px="5px"
+                      shadow="0px 0px 10px 0px rgba(0,0,0,0.75);"
+                      borderRadius="10px"
+                    >
+                      <Text>Task 1</Text>
+                    </Box>
+                  </Flex>
                 </Box>
               </Flex>
             </Box>
