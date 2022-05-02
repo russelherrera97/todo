@@ -13,6 +13,7 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
+  FormLabel,
   ModalCloseButton,
   CloseButton,
   ModalBody,
@@ -26,14 +27,17 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import { CloseIcon, EditIcon, CheckIcon } from "@chakra-ui/icons";
-import { useState } from "react";
+import { useState, useRef } from "react";
 export default function Home() {
   const [value, setValue] = useState("");
   const [value2, setValue2] = useState("");
+  const [value3, setValue3] = useState("");
+  const [value4, setValue4] = useState("");
   const [inputList, setInputList] = useState([]);
   const [textAreaCount, ChangeTextAreaCount] = useState(0);
   const [description, setDescription] = useState(0);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const initialRef = useRef();
 
   const charCount = (e) => {
     setDescription(e.target.value.length);
@@ -43,7 +47,19 @@ export default function Home() {
     ChangeTextAreaCount(e.target.value.length);
     setValue(e.target.value);
   };
+  const newTitle = (e) => {
+    setValue3(e.target.value);
+  };
+  const newDescription = (e) => {
+    setValue4(e.target.value);
+  };
 
+  const UpdateItem = (e) => {
+    e.preventDefault();
+    document.getElementById("title").innerHTML = value3;
+    document.getElementById("description").innerHTML = value4;
+    onClose();
+  };
   const onAddBtnClick = () => {
     setInputList(inputList.concat(<TaskItem key={inputList.length} />));
     document.getElementById("task-title").value = "";
@@ -65,11 +81,12 @@ export default function Home() {
       "line-through"
     );
   }
+
   const TaskItem = () => {
     return (
       <Flex flexDir="column" id="taskItem">
         <Box
-          w="100%"
+          w={{ base: "300px", md: "100%" }}
           h={{ base: "10vh", md: "10vh" }}
           mb="3vh"
           py="10px"
@@ -83,7 +100,6 @@ export default function Home() {
             borderLeftRadius="2px"
             zIndex={0}
             pl="10px"
-            overflow={"auto"}
             h="100%"
           >
             {" "}
@@ -112,6 +128,7 @@ export default function Home() {
                 onClick={onOpen}
                 leftIcon={<EditIcon w="12px" color="orange" />}
               />
+
               <Button
                 background="transparent"
                 iconSpacing={0}
@@ -120,7 +137,7 @@ export default function Home() {
               />
             </Flex>
             <Flex flexDir={"column"} lineHeight="30px">
-              <Text> {value2.toString()}</Text>
+              <Text id="description"> {value2.toString()}</Text>
             </Flex>
           </Box>
         </Box>
@@ -130,6 +147,42 @@ export default function Home() {
 
   return (
     <ChakraProvider>
+      {/* MODAL START */}
+      <Modal isOpen={isOpen} onClose={onClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Edit Task</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody pb={6}>
+            <FormControl>
+              <FormLabel>Edit Title</FormLabel>
+              <Input
+                ref={initialRef}
+                placeholder="Edit Title"
+                onChange={newTitle}
+                maxLength={25}
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Edit Description</FormLabel>
+              <Input
+                maxLength={25}
+                placeholder="Edit Descriptiom"
+                onChange={newDescription}
+              />
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={UpdateItem}>
+              Save
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+      {/* MODAL END */}
       <Stack spacing="0px">
         <Stack>
           <Flex
@@ -145,23 +198,7 @@ export default function Home() {
             </Text>
           </Flex>
         </Stack>
-        {/* MODAL START */}
-        <Modal isOpen={isOpen} onClose={onClose}>
-          <ModalOverlay />
-          <ModalContent>
-            <ModalHeader></ModalHeader>
-            <ModalCloseButton />
-            <ModalBody></ModalBody>
 
-            <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
-              </Button>
-              <Button variant="ghost">Secondary Action</Button>
-            </ModalFooter>
-          </ModalContent>
-        </Modal>
-        {/* MODAL END */}
         <Stack h="100%" w="100%">
           <SimpleGrid columns={{ base: 1, md: 2 }}>
             <Box
@@ -179,7 +216,7 @@ export default function Home() {
                   Create New Task
                 </Text>
 
-                <FormControl variant="floating">
+                <FormControl variant="floating" isRequired>
                   <Text mb={"auto"} fontSize="12" textAlign="right">
                     {textAreaCount.toString()}/25
                   </Text>
@@ -195,14 +232,14 @@ export default function Home() {
                 </FormControl>
                 <FormControl variant="floating">
                   <Text fontSize="12" mb={"auto"} textAlign="right">
-                    {description}/75
+                    {description}/25
                   </Text>
                   <Textarea
                     backgroundColor="#fff"
                     placeholder="Task Description"
                     mb="5vh"
                     id="task-description"
-                    maxLength={75}
+                    maxLength={25}
                     focusBorderColor="#a7b3a5"
                     h={{ base: "5vh", md: "30vh", lg: "30vh" }}
                     onChange={charCount}
