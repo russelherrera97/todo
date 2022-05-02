@@ -70,7 +70,7 @@ export default function Home() {
       <Flex flexDir="column" id="taskItem">
         <Box
           w="100%"
-          h="10vh"
+          h={{ base: "15vh", md: "10vh" }}
           mb="3vh"
           py="10px"
           px="30px"
@@ -89,7 +89,7 @@ export default function Home() {
             {" "}
             <Flex>
               <Text
-                fontSize={{ base: "12", md: "1.5rem" }}
+                fontSize={{ base: "1rem", md: "1.5rem" }}
                 fontWeight={"600"}
                 id="title"
               >
@@ -204,7 +204,7 @@ export default function Home() {
                     id="task-description"
                     maxLength={75}
                     focusBorderColor="#a7b3a5"
-                    h={{ base: "20vh", md: "30vh", lg: "30vh" }}
+                    h={{ base: "5vh", md: "30vh", lg: "30vh" }}
                     onChange={charCount}
                   />
                 </FormControl>
