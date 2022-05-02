@@ -60,7 +60,6 @@ export default function Home() {
     setInputList(inputList.slice(this));
   };
   function completeItem(e) {
-    console.log(e.target.parentNode.parentNode.parentNode.parentNode);
     e.target.parentNode.parentNode.parentNode.parentNode.style.setProperty(
       "text-decoration",
       "line-through"
@@ -84,11 +83,16 @@ export default function Home() {
             borderLeftRadius="2px"
             zIndex={0}
             pl="10px"
+            overflow={"auto"}
             h="100%"
           >
             {" "}
             <Flex>
-              <Text fontSize="1.5rem" fontWeight={"600"} id="title">
+              <Text
+                fontSize={{ base: "12", md: "1.5rem" }}
+                fontWeight={"600"}
+                id="title"
+              >
                 {" "}
                 {value.toString()}
               </Text>
