@@ -7,87 +7,52 @@ import {
   Text,
   Button,
   ChakraProvider,
-  Fade,
-  useDisclosure,
-  ScaleFade,
-  Slide,
-  SlideFade,
+  useToast,
+  extendTheme,
   Input,
   FormControl,
-  FormLabel,
   Select,
   Spacer,
   SimpleGrid,
-  extendTheme,
   Textarea,
 } from "@chakra-ui/react";
+import { CloseIcon, EditIcon, CheckIcon } from "@chakra-ui/icons";
 import { useState } from "react";
 export default function Home() {
-  const activeLabelStyles = {
-    transform: "scale(0.85) translateY(-24px)",
-  };
-  const theme = extendTheme({
-    components: {
-      Form: {
-        variants: {
-          floating: {
-            container: {
-              _focusWithin: {
-                label: {
-                  ...activeLabelStyles,
-                },
-              },
-              "input:not(:placeholder-shown) + label, .chakra-select__wrapper + label":
-                {
-                  ...activeLabelStyles,
-                },
-              label: {
-                top: 0,
-                color: "gray",
-                left: 0,
-                zIndex: 2,
-                position: "absolute",
-                backgroundColor: "transparent",
-                pointerEvents: "none",
-                mx: 3,
-                px: 1,
-                my: 0,
-                transformOrigin: "left top",
-              },
-            },
-          },
-        },
-      },
-    },
-  });
   const [value, setValue] = useState("");
   const [value2, setValue2] = useState("");
   const [inputList, setInputList] = useState([]);
   const [textAreaCount, ChangeTextAreaCount] = useState(0);
   const [description, setDescription] = useState(0);
-  function handle() {
-    console.log(value);
-  }
+  const lineThrough = () => {
+    document.getElementById("title").style.textDecoration = "line-through";
+  };
   const charCount = (e) => {
     setDescription(e.target.value.length);
     setValue2(e.target.value);
   };
+  const titleCount = (e) => {
+    ChangeTextAreaCount(e.target.value.length);
+    setValue(e.target.value);
+  };
+
   const onAddBtnClick = () => {
     setInputList(inputList.concat(<TaskItem key={inputList.length} />));
+    document.getElementById("task-title").value = "";
+    document.getElementById("task-description").value = "";
+    ChangeTextAreaCount(0);
+    setDescription(0);
+    setValue2("");
+    setValue("");
   };
   const removeInput = () => {
     setInputList(inputList.slice(0, 0));
   };
 
-  const titleCount = (e) => {
-    ChangeTextAreaCount(e.target.value.length);
-    setValue(e.target.value);
-  };
   const TaskItem = () => {
     return (
       <Flex flexDir="column">
         <Box
-          backgroundColor="red"
           w="100%"
           h="10vh"
           mb="3vh"
@@ -97,13 +62,43 @@ export default function Home() {
           className="task-item"
           borderRadius="10px"
         >
-          <Flex flexDir={"column"} lineHeight="30px">
-            <Text fontSize="1.5rem" fontWeight={"600"}>
-              {" "}
-              {value.toString()}
-            </Text>
-            <Text> {value2.toString()}</Text>
-          </Flex>
+          <Box
+            borderLeft={"4px solid red"}
+            borderLeftRadius="2px"
+            zIndex={0}
+            pl="10px"
+            h="100%"
+          >
+            {" "}
+            <Flex>
+              <Text fontSize="1.5rem" fontWeight={"600"} id="title">
+                {" "}
+                {value.toString()}
+              </Text>
+              <Spacer />
+
+              <Button
+                mr="-20px"
+                iconSpacing={0}
+                background="transparent"
+                leftIcon={<CloseIcon w="10px" color="red" />}
+              />
+              <Button
+                mr="-20px"
+                iconSpacing={0}
+                background="transparent"
+                leftIcon={<EditIcon w="12px" color="orange" />}
+              />
+              <Button
+                background="transparent"
+                iconSpacing={0}
+                leftIcon={<CheckIcon color="green" w="12px" />}
+              />
+            </Flex>
+            <Flex flexDir={"column"} lineHeight="30px">
+              <Text> {value2.toString()}</Text>
+            </Flex>
+          </Box>
         </Box>
       </Flex>
     );
@@ -152,7 +147,8 @@ export default function Home() {
                     mb="5vh"
                     backgroundColor="#fff"
                     focusBorderColor="#a7b3a5"
-                    placeholder="Task Name"
+                    placeholder="Task Title"
+                    id="task-title"
                     onChange={titleCount}
                     maxLength="25"
                   />
@@ -165,6 +161,7 @@ export default function Home() {
                     backgroundColor="#fff"
                     placeholder="Task Description"
                     mb="5vh"
+                    id="task-description"
                     maxLength={75}
                     focusBorderColor="#a7b3a5"
                     h={{ base: "20vh", md: "30vh", lg: "30vh" }}
@@ -222,8 +219,7 @@ export default function Home() {
                   </Button>
                 </Flex>
                 <Box
-                  h={{ base: "40vh", md: "30vh", lg: "30vh" }}
-                  backgroundColor="green"
+                  h={{ base: "40vh", md: "30vh", lg: "50vh" }}
                   px="30px"
                   py="30px"
                   overflow="auto"
