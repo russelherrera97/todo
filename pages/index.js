@@ -70,7 +70,7 @@ export default function Home() {
       <Flex flexDir="column" id="taskItem">
         <Box
           w="100%"
-          h={{ base: "15vh", md: "10vh" }}
+          h={{ base: "10vh", md: "10vh" }}
           mb="3vh"
           py="10px"
           px="30px"
