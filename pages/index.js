@@ -9,9 +9,18 @@ import {
   ChakraProvider,
   useToast,
   extendTheme,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  CloseButton,
+  ModalBody,
+  ModalFooter,
   Input,
   FormControl,
   Select,
+  useDisclosure,
   Spacer,
   SimpleGrid,
   Textarea,
@@ -24,9 +33,8 @@ export default function Home() {
   const [inputList, setInputList] = useState([]);
   const [textAreaCount, ChangeTextAreaCount] = useState(0);
   const [description, setDescription] = useState(0);
-  const lineThrough = () => {
-    document.getElementById("title").style.textDecoration = "line-through";
-  };
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   const charCount = (e) => {
     setDescription(e.target.value.length);
     setValue2(e.target.value);
@@ -48,10 +56,19 @@ export default function Home() {
   const removeInput = () => {
     setInputList(inputList.slice(0, 0));
   };
-
+  const removeInput1 = () => {
+    setInputList(inputList.slice(this));
+  };
+  function completeItem(e) {
+    console.log(e.target.parentNode.parentNode.parentNode.parentNode);
+    e.target.parentNode.parentNode.parentNode.parentNode.style.setProperty(
+      "text-decoration",
+      "line-through"
+    );
+  }
   const TaskItem = () => {
     return (
-      <Flex flexDir="column">
+      <Flex flexDir="column" id="taskItem">
         <Box
           w="100%"
           h="10vh"
@@ -81,17 +98,20 @@ export default function Home() {
                 mr="-20px"
                 iconSpacing={0}
                 background="transparent"
+                onClick={removeInput1}
                 leftIcon={<CloseIcon w="10px" color="red" />}
               />
               <Button
                 mr="-20px"
                 iconSpacing={0}
                 background="transparent"
+                onClick={onOpen}
                 leftIcon={<EditIcon w="12px" color="orange" />}
               />
               <Button
                 background="transparent"
                 iconSpacing={0}
+                onClick={completeItem}
                 leftIcon={<CheckIcon color="green" w="12px" />}
               />
             </Flex>
@@ -121,7 +141,23 @@ export default function Home() {
             </Text>
           </Flex>
         </Stack>
+        {/* MODAL START */}
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader></ModalHeader>
+            <ModalCloseButton />
+            <ModalBody></ModalBody>
 
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                Close
+              </Button>
+              <Button variant="ghost">Secondary Action</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+        {/* MODAL END */}
         <Stack h="100%" w="100%">
           <SimpleGrid columns={{ base: 1, md: 2 }}>
             <Box
