@@ -98,15 +98,18 @@ export default function Home() {
   }
   return (
     <ChakraProvider>
-      <Stack spacing="0px">
+      <Stack
+        spacing="0px"
+        backgroundImage={`url(https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1176&q=80)`}
+        backgroundSize="cover"
+        backgroundPosition="center"
+      >
         <Stack>
           <Flex
             py="0px"
             px="10px"
             h="45px"
-            boxShadow="lg"
             alignItems={{ base: "center", md: "flex-start" }}
-            backgroundColor="#6D7993"
           >
             <Text fontWeight="600" color="#fff" fontSize="2rem">
               To-do App
@@ -116,12 +119,7 @@ export default function Home() {
 
         <Stack h="100%" w="100%">
           <SimpleGrid columns={{ base: 1, md: 2 }}>
-            <Box
-              backgroundColor="#D5D5D5"
-              py="40px"
-              px="40px"
-              h={{ base: "100%", md: "100vh" }}
-            >
+            <Box py="40px" px="40px" h={{ base: "100%", md: "100vh" }}>
               <Flex flexDir="column" rowGap={{ base: 0, lg: "20px" }}>
                 <Text
                   fontWeight="600"
@@ -161,7 +159,7 @@ export default function Home() {
                   />
                 </FormControl>
                 <Button
-                  backgroundColor="#9099a2"
+                  backgroundColor="#e8e6e4"
                   alignSelf="center"
                   w={{ base: "200px", md: "300px" }}
                   onClick={onAddBtnClick}
@@ -170,12 +168,7 @@ export default function Home() {
                 </Button>
               </Flex>
             </Box>
-            <Box
-              backgroundColor="#fff"
-              py="40px"
-              px="40px"
-              h={{ base: "100%", md: "100vh" }}
-            >
+            <Box py="40px" px="40px" h={{ base: "100%", md: "100vh" }}>
               {" "}
               <Flex
                 flexDir="column"
@@ -273,8 +266,8 @@ export default function Home() {
                           {/* MODAL END */}
                           <Box
                             borderLeft={{
-                              base: "2px solid red",
-                              sm: "4px solid red",
+                              base: "2px solid #cfd9ce",
+                              sm: "4px solid #cfd9ce",
                             }}
                             borderLeftRadius="2px"
                             pl="10px"
@@ -291,6 +284,7 @@ export default function Home() {
                                     : "none",
                                 }}
                                 id="title"
+                                color="white"
                               >
                                 {item.title}
                               </Text>
@@ -321,6 +315,7 @@ export default function Home() {
                             <Flex>
                               <Text
                                 id="description"
+                                color="white"
                                 fontSize={{ base: "1rem", sm: "1.5rem" }}
                               >
                                 {" "}
