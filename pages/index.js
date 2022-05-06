@@ -7,25 +7,20 @@ import {
   Text,
   Button,
   ChakraProvider,
-  useToast,
-  extendTheme,
   Modal,
   ModalOverlay,
   ModalContent,
   ModalHeader,
   FormLabel,
   ModalCloseButton,
-  CloseButton,
   ModalBody,
   ModalFooter,
   Input,
   FormControl,
-  Select,
   useDisclosure,
   Spacer,
   SimpleGrid,
   Textarea,
-  useUpdateEffect,
 } from "@chakra-ui/react";
 import { CloseIcon, EditIcon, CheckIcon } from "@chakra-ui/icons";
 import { useState, useRef, setState } from "react";
@@ -139,6 +134,9 @@ export default function Home() {
   }
   return (
     <ChakraProvider>
+      <Head>
+        <title>Todo List</title>
+      </Head>
       <Stack spacing="0px">
         <Box
           background={`url(https://images.unsplash.com/photo-1593062096033-9a26b09da705?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80)`}
