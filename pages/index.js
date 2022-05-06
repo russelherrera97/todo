@@ -34,8 +34,15 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Home() {
-  const notify = () => toast("Wow so easy !");
-
+  const addTitle = () => {
+    toast.success("Task Created");
+  };
+  const emptyField = () => {
+    toast.error("Please fill all the fields");
+  };
+  const editSuccess = () => {
+    toast.info("Task Updated");
+  };
   const [value, setValue] = useState("");
   const [value2, setValue2] = useState("");
   const [indexToUpdate, setIndex] = useState(0);
@@ -69,17 +76,26 @@ export default function Home() {
       />
     );
   }
-
-  const onAddBtnClick = () => {
-    setInputList([...inputList, { title: value, description: value2 }]);
+  function isEmpty(str) {
+    return !str.trim().length;
+  }
+  function ClearFields() {
     document.getElementById("task-title").value = "";
     document.getElementById("task-description").value = "";
-    ChangeTextAreaCount(0);
-    setDescription(0);
-    toast("Task Created");
-
-    setValue2("");
-    setValue("");
+  }
+  const onAddBtnClick = () => {
+    const titleField = document.getElementById("task-title");
+    const descField = document.getElementById("task-description");
+    if (isEmpty(titleField.value) || isEmpty(descField.value)) {
+      emptyField();
+      return false;
+    } else {
+      ClearFields();
+      addTitle();
+      setInputList([...inputList, { title: value, description: value2 }]);
+      ChangeTextAreaCount(0);
+      setDescription(0);
+    }
   };
   const removeInput = () => {
     setInputList(inputList.slice(0, 0));
@@ -110,23 +126,18 @@ export default function Home() {
     console.log("open " + indexToUpdate);
   }
   function editItem() {
-    setValue("");
-    setValue2("");
     onClose();
-    console.log("close" + indexToUpdate);
-
-    if (value === "") {
-      inputList[indexToUpdate].title == inputList[indexToUpdate].title;
-    } else {
-      inputList[indexToUpdate].title = value;
-    }
-    if (value2 === "") {
+    if (isEmpty(value) || isEmpty(value2)) {
+      inputList[indexToUpdate].title = inputList[indexToUpdate].title;
       inputList[indexToUpdate].description =
         inputList[indexToUpdate].description;
     } else {
+      inputList[indexToUpdate].title = value;
       inputList[indexToUpdate].description = value2;
+      editSuccess();
+      setValue("");
+      setValue2("");
     }
-    console.log(inputList[indexToUpdate].title);
   }
   return (
     <ChakraProvider>
@@ -198,6 +209,16 @@ export default function Home() {
                     onClick={onAddBtnClick}
                   >
                     Create
+                    <ToastContainer
+                      position="top-right"
+                      autoClose={2000}
+                      hideProgressBar={true}
+                      newestOnTop={false}
+                      closeOnClick
+                      rtl={false}
+                      pauseOnFocusLoss
+                      draggable
+                    />
                   </Button>
                 </Flex>
               </Box>
