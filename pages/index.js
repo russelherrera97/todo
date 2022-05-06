@@ -135,7 +135,7 @@ export default function Home() {
   return (
     <ChakraProvider>
       <Head>
-        <title>Todo List</title>
+        <title>Todo List by Russ</title>
       </Head>
       <Stack spacing="0px">
         <Box
