@@ -46,8 +46,6 @@ export default function Home() {
   const [value, setValue] = useState("");
   const [value2, setValue2] = useState("");
   const [indexToUpdate, setIndex] = useState(0);
-  const [strike, setStrike] = useState(false);
-  const [green, setGreen] = useState(false);
   const [inputList, setInputList] = useState([]);
   const [textAreaCount, ChangeTextAreaCount] = useState(0);
   const [description, setDescription] = useState(0);
@@ -161,9 +159,9 @@ export default function Home() {
             </Flex>
           </Stack>
 
-          <Stack h="100%" w="100%">
+          <Stack h={{ base: "100%", md: "95vh" }} w="100%">
             <SimpleGrid columns={{ base: 1, md: 2 }}>
-              <Box py="40px" px="40px" h={{ base: "100%", md: "100vh" }}>
+              <Box py="40px" px="40px" h={{ base: "100%", md: "100%" }}>
                 <Flex flexDir="column" rowGap={{ base: 0, lg: "20px" }}>
                   <Text
                     fontWeight="600"
@@ -222,7 +220,7 @@ export default function Home() {
                   </Button>
                 </Flex>
               </Box>
-              <Box py="40px" px="40px" h={{ base: "100%", md: "100vh" }}>
+              <Box py="40px" px="40px" h={{ base: "100%", md: "100%" }}>
                 {" "}
                 <Flex
                   flexDir="column"
@@ -334,11 +332,6 @@ export default function Home() {
                                 <Text
                                   fontSize={{ base: "1rem", sm: "2rem" }}
                                   fontWeight={"600"}
-                                  style={{
-                                    textDecoration: strike
-                                      ? "line-through"
-                                      : "none",
-                                  }}
                                   id={"title" + index}
                                   color="white"
                                   value={item.title}
