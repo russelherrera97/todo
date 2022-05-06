@@ -215,7 +215,7 @@ export default function Home() {
                     My Tasks
                   </Text>
                   <Flex mb={{ base: "6vh", lg: "4vh" }}>
-                    <Select
+                    {/* <Select
                       w={{ base: "130px", md: "180px" }}
                       placeholder="Filter Task"
                       shadow="0px 0px 10px 0px rgba(0,0,0,0.75);"
@@ -224,7 +224,7 @@ export default function Home() {
                       <option value="all">All Tasks</option>
                       <option value="completed">Completed Tasks</option>
                       <option value="incomplete">Incomplete Tasks</option>
-                    </Select>
+                    </Select> */}
                     <Spacer />
                     <Button
                       backgroundColor="#e8e6e4"
